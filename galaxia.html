@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Misión Espacial — Galaxia</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@500;700;900&family=Rajdhani:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<div class="estrellas-fondo" aria-hidden="true"></div>
+
+<div id="cabecera"></div>
+
+<main>
+  <section class="seccion">
+    <h2 class="seccion__titulo">Datos Curiosos</h2>
+
+    <div class="filtro-galaxia" id="filtroGalaxia" role="tablist" aria-label="Filtrar datos curiosos">
+      <button class="filtro__boton es-activo" data-filtro="todos" role="tab" aria-selected="true">Todos</button>
+      <button class="filtro__boton" data-filtro="estrellas" role="tab" aria-selected="false">Estrellas</button>
+      <button class="filtro__boton" data-filtro="planetas" role="tab" aria-selected="false">Planetas</button>
+      <button class="filtro__boton" data-filtro="constelaciones" role="tab" aria-selected="false">Constelaciones</button>
+    </div>
+
+    <div class="rejilla-galaxia">
+      <div class="columna-tarjetas" id="columnaTarjetas"></div>
+
+      <div class="visor-galaxia">
+        <img src="galaxia.png" alt="Fotografía de una galaxia espiral" class="visor-galaxia__imagen" id="imagenGalaxia">
+      </div>
+ 
+      <div class="visor-constelacion tarjeta" id="visorConstelacion">
+        <div class="visor-constelacion__cabecera">
+          <span>Constelación: <strong id="nombreConstelacion">Orión</strong></span>
+          <button id="botonCambiarConstelacion" class="boton boton--fantasma boton--pequeno">Siguiente ▸</button>
+        </div>
+        <svg id="svgConstelacion" viewBox="0 0 300 220" role="img" aria-label="Mapa de constelación"></svg>
+      </div>
+    </div>
+  </section>
+</main>
+
+<script src="comun.js"></script>
+<script src="galaxia.js"></script>
+</body>
+</html>

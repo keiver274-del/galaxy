@@ -1,0 +1,625 @@
+/* =========================================================
+   MISIÓN ESPACIAL — hoja de estilos
+   Paleta:
+     --fondo-1: #080a1f   --fondo-2: #1a1245   --panel: #131a3a
+     --cian:    #4fd3ff   --violeta: #8b6bff   --oro: #f5c542
+     --texto:   #e9edff   --texto-tenue: #9aa3cf
+   Tipografía: Orbitron (display) + Rajdhani (cuerpo)
+   ========================================================= */
+
+:root {
+  --fondo-1: #080a1f;
+  --fondo-2: #1a1245;
+  --panel: #131a3a;
+  --panel-borde: rgba(140, 160, 255, 0.18);
+  --cian: #4fd3ff;
+  --violeta: #8b6bff;
+  --oro: #f5c542;
+  --oro-oscuro: #c98a1c;
+  --texto: #e9edff;
+  --texto-tenue: #9aa3cf;
+  --radio: 16px;
+  --sombra-panel: 0 8px 30px rgba(0, 0, 0, 0.45);
+}
+
+* { box-sizing: border-box; }
+
+html { scroll-behavior: smooth; }
+
+body {
+  margin: 0;
+  min-height: 100vh;
+  font-family: 'Rajdhani', sans-serif;
+  color: var(--texto);
+  background:
+    radial-gradient(ellipse at 20% -10%, rgba(139, 107, 255, 0.35), transparent 55%),
+    radial-gradient(ellipse at 90% 10%, rgba(79, 211, 255, 0.18), transparent 45%),
+    linear-gradient(180deg, var(--fondo-1), var(--fondo-2) 60%, var(--fondo-1));
+  position: relative;
+  overflow-x: hidden;
+}
+
+/* Campo de estrellas ambiental, generado con box-shadow */
+.estrellas-fondo {
+  position: fixed;
+  inset: 0;
+  z-index: -1;
+  background-image:
+    radial-gradient(1.5px 1.5px at 10% 20%, #fff, transparent),
+    radial-gradient(1.5px 1.5px at 80% 10%, #fff, transparent),
+    radial-gradient(1px 1px at 60% 70%, #fff, transparent),
+    radial-gradient(1px 1px at 30% 85%, #fff, transparent),
+    radial-gradient(1.5px 1.5px at 90% 60%, #fff, transparent),
+    radial-gradient(1px 1px at 45% 40%, #fff, transparent),
+    radial-gradient(1px 1px at 15% 55%, #fff, transparent),
+    radial-gradient(1.5px 1.5px at 70% 90%, #fff, transparent);
+  background-repeat: repeat;
+  background-size: 400px 400px;
+  opacity: 0.55;
+  animation: derivaEstrellas 90s linear infinite;
+}
+@keyframes derivaEstrellas {
+  from { background-position: 0 0; }
+  to { background-position: -800px 800px; }
+}
+
+h1, h2, h3, .titulo-brillante {
+  font-family: 'Orbitron', sans-serif;
+  margin: 0;
+}
+
+button { font-family: inherit; cursor: pointer; }
+a { color: inherit; }
+
+/* -------------------- Encabezado -------------------- */
+.cabecera {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+  padding: 1rem 2rem;
+  position: sticky;
+  top: 0;
+  z-index: 20;
+  background: rgba(8, 10, 31, 0.7);
+  backdrop-filter: blur(10px);
+  border-bottom: 1px solid var(--panel-borde);
+  flex-wrap: wrap;
+}
+.cabecera__marca { display: flex; align-items: center; gap: 0.6rem; }
+.cabecera__logo { font-size: 1.4rem; }
+.cabecera__titulo {
+  font-family: 'Orbitron', sans-serif;
+  font-weight: 700;
+  font-size: 1.3rem;
+  background: linear-gradient(90deg, var(--cian), var(--violeta));
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+  letter-spacing: 0.5px;
+}
+.cabecera__nav { display: flex; gap: 1.6rem; }
+.nav__link {
+  text-decoration: none;
+  color: var(--texto-tenue);
+  font-weight: 600;
+  letter-spacing: 0.5px;
+  transition: color 0.2s;
+}
+.nav__link:hover, .nav__link:focus-visible { color: var(--cian); }
+.nav__link.es-activo { color: var(--cian); }
+.cabecera__usuario { display: flex; align-items: center; gap: 0.8rem; font-weight: 600; color: var(--texto-tenue); }
+#saludoUsuario { color: var(--texto); }
+
+/* -------------------- Botones -------------------- */
+.boton {
+  border: none;
+  border-radius: 999px;
+  padding: 0.7rem 1.6rem;
+  font-weight: 700;
+  font-size: 0.95rem;
+  letter-spacing: 0.3px;
+  text-decoration: none;
+  transition: transform 0.15s ease, box-shadow 0.15s ease, opacity 0.15s;
+}
+.boton[hidden] { display: none !important; }
+.boton:not([hidden]) { display: inline-block; }
+.boton--primario {
+  background: linear-gradient(90deg, var(--cian), var(--violeta));
+  color: #07091c;
+  box-shadow: 0 6px 20px rgba(79, 211, 255, 0.25);
+}
+.boton--primario:hover { transform: translateY(-2px); box-shadow: 0 10px 26px rgba(79, 211, 255, 0.35); }
+.boton--primario:disabled { opacity: 0.45; transform: none; box-shadow: none; cursor: not-allowed; }
+.boton--fantasma {
+  background: transparent;
+  color: var(--texto-tenue);
+  border: 1px solid var(--panel-borde);
+}
+.boton--fantasma:hover { color: var(--texto); border-color: var(--cian); }
+.boton--pequeno { padding: 0.35rem 0.9rem; font-size: 0.8rem; }
+.boton:focus-visible { outline: 2px solid var(--cian); outline-offset: 2px; }
+
+/* -------------------- Tarjetas genéricas -------------------- */
+.tarjeta {
+  background: var(--panel);
+  border: 1px solid var(--panel-borde);
+  border-radius: var(--radio);
+  box-shadow: var(--sombra-panel);
+}
+
+/* -------------------- Login -------------------- */
+.pantalla-login {
+  min-height: 82vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 3rem 1.5rem;
+  position: relative;
+}
+.orbita-decorativa {
+  position: relative;
+  width: 260px;
+  height: 260px;
+  margin-bottom: 1rem;
+}
+.sol-central {
+  position: absolute;
+  top: 50%; left: 50%;
+  width: 34px; height: 34px;
+  margin: -17px 0 0 -17px;
+  border-radius: 50%;
+  background: radial-gradient(circle at 35% 30%, #fff2c0, var(--oro) 60%, var(--oro-oscuro));
+  box-shadow: 0 0 40px 10px rgba(245, 197, 66, 0.55);
+}
+.orbita {
+  position: absolute;
+  top: 50%; left: 50%;
+  border: 1px dashed rgba(154, 163, 207, 0.35);
+  border-radius: 50%;
+  transform: translate(-50%, -50%);
+  animation: girar linear infinite;
+}
+.orbita--1 { width: 110px; height: 110px; animation-duration: 6s; }
+.orbita--2 { width: 175px; height: 175px; animation-duration: 11s; animation-direction: reverse; }
+.orbita--3 { width: 250px; height: 250px; animation-duration: 17s; }
+@keyframes girar { from { transform: translate(-50%, -50%) rotate(0deg); } to { transform: translate(-50%, -50%) rotate(360deg); } }
+.orbita__planeta {
+  position: absolute;
+  top: -6px; left: 50%;
+  width: 12px; height: 12px;
+  margin-left: -6px;
+  border-radius: 50%;
+  background: var(--cian);
+  box-shadow: 0 0 12px 2px rgba(79, 211, 255, 0.7);
+}
+.orbita__planeta--2 { background: var(--violeta); box-shadow: 0 0 12px 2px rgba(139, 107, 255, 0.7); width: 16px; height: 16px; margin-left: -8px; top: -8px; }
+.orbita__planeta--3 { background: #ff9f6b; box-shadow: 0 0 12px 2px rgba(255, 159, 107, 0.7); }
+
+.tarjeta--login {
+  max-width: 440px;
+  width: 100%;
+  padding: 2.4rem 2rem;
+  text-align: center;
+}
+.titulo-brillante {
+  font-size: 2rem;
+  background: linear-gradient(90deg, var(--cian), var(--violeta));
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+  margin-bottom: 0.6rem;
+}
+.login__subtitulo { color: var(--texto-tenue); margin: 0 0 1.6rem; line-height: 1.5; }
+.etiqueta-oculta {
+  position: absolute; width: 1px; height: 1px;
+  overflow: hidden; clip: rect(0,0,0,0); white-space: nowrap;
+}
+#formularioLogin { display: flex; flex-direction: column; gap: 0.9rem; }
+#campoUsuario {
+  background: rgba(255, 255, 255, 0.05);
+  border: 1px solid var(--panel-borde);
+  border-radius: 999px;
+  padding: 0.8rem 1.2rem;
+  color: var(--texto);
+  font-size: 1rem;
+  font-family: inherit;
+}
+#campoUsuario:focus-visible { outline: 2px solid var(--cian); outline-offset: 1px; }
+.mensaje-error { color: #ff8a8a; font-weight: 600; margin: 0; }
+
+/* -------------------- Secciones -------------------- */
+.seccion { max-width: 1180px; margin: 0 auto; padding: 3rem 2rem 2rem; }
+.seccion__titulo { text-align: center; font-size: 1.6rem; margin-bottom: 1.8rem; letter-spacing: 0.5px; }
+
+/* -------------------- Juego de los planetas -------------------- */
+.tira-planetas {
+  display: flex;
+  gap: 1rem;
+  overflow-x: auto;
+  padding: 0.5rem 0.2rem 1.2rem;
+  scrollbar-width: thin;
+}
+.tarjeta-planeta {
+  flex: 0 0 160px;
+  background: var(--panel);
+  border: 2px solid var(--panel-borde);
+  border-radius: var(--radio);
+  padding: 1.1rem 0.9rem;
+  text-align: center;
+  transition: border-color 0.2s, transform 0.2s, box-shadow 0.2s;
+}
+.tarjeta-planeta__esfera {
+  width: 64px; height: 64px;
+  border-radius: 50%;
+  margin: 0 auto 0.7rem;
+  box-shadow: inset -8px -8px 16px rgba(0,0,0,0.35);
+}
+.tarjeta-planeta__nombre { font-weight: 700; font-family: 'Orbitron', sans-serif; font-size: 0.85rem; }
+.tarjeta-planeta__dato { color: var(--texto-tenue); font-size: 0.78rem; margin-top: 0.3rem; }
+.tarjeta-planeta__orden {
+  display: none;
+  margin-top: 0.5rem;
+  width: 26px; height: 26px;
+  line-height: 26px;
+  border-radius: 50%;
+  background: var(--cian);
+  color: #07091c;
+  font-weight: 800;
+  margin-left: auto; margin-right: auto;
+}
+.tarjeta-planeta.es-seleccionable { cursor: pointer; }
+.tarjeta-planeta.es-seleccionable:hover { transform: translateY(-4px); border-color: var(--cian); }
+.tarjeta-planeta.es-elegido { border-color: var(--oro); box-shadow: 0 0 18px rgba(245, 197, 66, 0.35); }
+.tarjeta-planeta.es-elegido .tarjeta-planeta__orden { display: block; }
+.tarjeta-planeta.es-correcto { border-color: #4ade80; box-shadow: 0 0 18px rgba(74, 222, 128, 0.4); }
+.tarjeta-planeta.es-incorrecto { border-color: #ff5c5c; animation: sacudir 0.4s; }
+@keyframes sacudir { 0%,100%{transform:translateX(0);} 25%{transform:translateX(-6px);} 75%{transform:translateX(6px);} }
+
+.panel-juego { max-width: 720px; margin: 0 auto; padding: 1.8rem; text-align: center; }
+.panel-juego__instruccion { font-size: 1rem; color: var(--texto-tenue); margin: 0 0 1.1rem; }
+.marcador-nivel { display: flex; flex-direction: column; gap: 0.5rem; margin-bottom: 1.2rem; font-weight: 700; }
+.barra-progreso {
+  width: 100%; height: 8px;
+  background: rgba(255,255,255,0.08);
+  border-radius: 999px;
+  overflow: hidden;
+}
+.barra-progreso__relleno {
+  height: 100%;
+  width: 20%;
+  background: linear-gradient(90deg, var(--cian), var(--violeta));
+  transition: width 0.4s ease;
+}
+.zona-seleccion {
+  min-height: 3rem;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+  justify-content: center;
+  align-items: center;
+  padding: 0.6rem;
+  border: 1px dashed var(--panel-borde);
+  border-radius: 12px;
+  margin-bottom: 1rem;
+  font-weight: 600;
+  color: var(--texto-tenue);
+}
+.chip-seleccion {
+  background: rgba(79, 211, 255, 0.12);
+  border: 1px solid var(--cian);
+  color: var(--texto);
+  padding: 0.3rem 0.8rem;
+  border-radius: 999px;
+  font-weight: 700;
+  font-size: 0.85rem;
+}
+.mensaje-juego { font-weight: 700; margin: 0 0 1rem; }
+.mensaje-juego.es-exito { color: #4ade80; }
+.mensaje-juego.es-error { color: #ff8a8a; }
+.panel-juego__acciones { display: flex; justify-content: center; gap: 0.8rem; flex-wrap: wrap; }
+
+/* -------------------- Galaxia -------------------- */
+.filtro-galaxia { display: flex; justify-content: center; gap: 0.6rem; margin-bottom: 1.8rem; flex-wrap: wrap; }
+.filtro__boton {
+  background: transparent;
+  border: 1px solid var(--panel-borde);
+  color: var(--texto-tenue);
+  padding: 0.5rem 1.1rem;
+  border-radius: 999px;
+  font-weight: 700;
+  font-size: 0.85rem;
+}
+.filtro__boton.es-activo { background: linear-gradient(90deg, var(--cian), var(--violeta)); color: #07091c; border-color: transparent; }
+
+.rejilla-galaxia {
+  display: grid;
+  grid-template-columns: 1fr 1.3fr;
+  grid-template-areas:
+    "tarjetas imagen"
+    "tarjetas constelacion";
+  gap: 1.2rem;
+}
+.columna-tarjetas { grid-area: tarjetas; display: flex; flex-direction: column; gap: 1rem; }
+.tarjeta-dato {
+  background: var(--panel);
+  border: 1px solid var(--panel-borde);
+  border-radius: var(--radio);
+  padding: 1.1rem 1.2rem;
+}
+.tarjeta-dato__titulo { font-family: 'Orbitron', sans-serif; font-size: 0.85rem; color: var(--cian); margin-bottom: 0.4rem; letter-spacing: 0.4px; }
+.tarjeta-dato__texto { color: var(--texto-tenue); font-size: 0.92rem; line-height: 1.45; margin: 0; }
+.tarjeta-dato__franja { display: flex; align-items: center; gap: 0.6rem; margin-top: 0.7rem; }
+.tarjeta-dato__esfera { width: 16px; height: 16px; border-radius: 50%; flex: none; }
+
+.visor-galaxia {
+  grid-area: imagen;
+  border-radius: var(--radio);
+  overflow: hidden;
+  min-height: 220px;
+  border: 1px solid var(--panel-borde);
+}
+.visor-galaxia__imagen {
+  display: block;
+  width: 100%; height: 100%; min-height: 220px;
+  object-fit: cover;
+}
+
+.visor-constelacion { grid-area: constelacion; padding: 1rem 1.2rem 1.3rem; }
+.visor-constelacion__cabecera { display: flex; justify-content: space-between; align-items: center; font-weight: 700; margin-bottom: 0.6rem; font-size: 0.9rem; }
+#svgConstelacion { width: 100%; height: 170px; }
+#svgConstelacion line { stroke: rgba(79, 211, 255, 0.55); stroke-width: 1; }
+#svgConstelacion circle { fill: #fff; }
+#svgConstelacion text { fill: var(--texto-tenue); font-size: 8px; font-family: 'Rajdhani', sans-serif; }
+
+/* -------------------- Logros -------------------- */
+.tira-logros { display: flex; justify-content: center; gap: 1.6rem; flex-wrap: wrap; }
+.insignia { width: 190px; text-align: center; }
+.insignia__hex {
+  width: 92px; height: 92px;
+  margin: 0 auto 0.7rem;
+  clip-path: polygon(50% 0%, 100% 25%, 100% 75%, 50% 100%, 0% 75%, 0% 25%);
+  display: flex; align-items: center; justify-content: center;
+  font-size: 1.7rem;
+  background: linear-gradient(145deg, #3a4270, #232a52);
+  border: 2px solid rgba(255,255,255,0.08);
+}
+.insignia.es-bloqueada .insignia__hex { color: var(--texto-tenue); }
+.insignia.es-desbloqueada .insignia__hex {
+  background: linear-gradient(145deg, #ffe9a8, var(--oro) 55%, var(--oro-oscuro));
+  border-color: rgba(255,255,255,0.4);
+  box-shadow: 0 0 26px rgba(245, 197, 66, 0.55);
+  color: #4a2e00;
+}
+.insignia__nombre { font-weight: 700; font-family: 'Orbitron', sans-serif; font-size: 0.8rem; margin-bottom: 0.2rem; }
+.insignia__detalle { color: var(--texto-tenue); font-size: 0.78rem; }
+.insignia.es-especial .insignia__nombre { color: var(--oro); }
+.insignia__candado { font-size: 0.75rem; color: var(--texto-tenue); margin-top: 0.2rem; }
+
+/* -------------------- Modal -------------------- */
+.modal {
+  position: fixed; inset: 0; z-index: 50;
+  align-items: center; justify-content: center;
+  background: rgba(4, 5, 18, 0.78);
+  backdrop-filter: blur(4px);
+  padding: 1.2rem;
+}
+.modal[hidden] { display: none !important; }
+.modal:not([hidden]) { display: flex; }
+.modal__contenido {
+  position: relative;
+  max-width: 420px; width: 100%;
+  padding: 2.2rem 1.8rem 1.8rem;
+  text-align: center;
+}
+.modal__cerrar {
+  position: absolute; top: 0.8rem; right: 0.9rem;
+  background: none; border: none; color: var(--texto-tenue); font-size: 1.1rem;
+}
+.modal__cerrar:hover { color: var(--texto); }
+.modal__insignia { font-size: 2.4rem; margin-bottom: 0.6rem; }
+.modal__mensaje { color: var(--texto-tenue); line-height: 1.55; margin: 0.8rem 0 1.4rem; }
+.modal__lluvia {
+  position: absolute; inset: 0;
+  background-image: radial-gradient(2px 2px at 20% 30%, var(--oro), transparent),
+                     radial-gradient(2px 2px at 70% 20%, var(--cian), transparent),
+                     radial-gradient(2px 2px at 40% 70%, var(--oro), transparent),
+                     radial-gradient(2px 2px at 85% 65%, var(--violeta), transparent),
+                     radial-gradient(2px 2px at 55% 45%, #fff, transparent);
+  animation: caerEstrellas 3s linear infinite;
+  pointer-events: none;
+}
+@keyframes caerEstrellas { from { background-position-y: -20px, -40px, -10px, -30px, -25px; } to { background-position-y: 500px, 520px, 480px, 510px, 495px; } }
+
+/* -------------------- Responsivo -------------------- */
+@media (max-width: 900px) {
+  .rejilla-galaxia { grid-template-columns: 1fr; grid-template-areas: "imagen" "tarjetas" "constelacion"; }
+}
+@media (max-width: 640px) {
+  .cabecera { padding: 0.9rem 1.1rem; }
+  .cabecera__nav { gap: 1rem; order: 3; width: 100%; justify-content: center; }
+  .seccion { padding: 2.2rem 1rem 1.5rem; }
+  .tarjeta-planeta { flex: 0 0 130px; }
+}
+
+/* Ajustes específicos de optimización responsiva para pantallas táctiles y móviles pequeños */
+@media (max-width: 480px) {
+  .cabecera {
+    flex-direction: column;
+    align-items: center;
+    gap: 0.6rem;
+    padding: 0.8rem 1rem;
+  }
+  
+  .cabecera__usuario {
+    width: 100%;
+    justify-content: space-between;
+    font-size: 0.9rem;
+  }
+
+  .cabecera__nav {
+    gap: 0.8rem;
+    font-size: 0.9rem;
+  }
+
+  .pantalla-login {
+    padding: 1.5rem 1rem;
+  }
+
+  .orbita-decorativa {
+    width: 200px;
+    height: 200px;
+  }
+
+  .orbita--1 { width: 85px; height: 85px; }
+  .orbita--2 { width: 135px; height: 135px; }
+  .orbita--3 { width: 190px; height: 190px; }
+
+  .tarjeta--login {
+    padding: 1.8rem 1.2rem;
+  }
+
+  .titulo-brillante {
+    font-size: 1.6rem;
+  }
+
+  .seccion {
+    padding: 1.5rem 0.8rem 1rem;
+  }
+
+  .seccion__titulo {
+    font-size: 1.3rem;
+  }
+
+  .panel-juego {
+    padding: 1.2rem 0.9rem;
+  }
+
+  .panel-juego__acciones {
+    flex-direction: column;
+    width: 100%;
+  }
+
+  .panel-juego__acciones .boton {
+    width: 100%;
+  }
+
+  .tira-logros {
+    gap: 1.2rem;
+  }
+
+  .insignia {
+    width: 100%;
+    max-width: 160px;
+  }
+
+  .modal__contenido {
+    padding: 1.8rem 1.2rem 1.4rem;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after { animation-duration: 0.01ms !important; animation-iteration-count: 1 !important; }
+}
+/* 1. Bloqueo estricto del scroll horizontal en la pantalla */
+html, body {
+  width: 100%;
+  max-width: 100vw;
+  overflow-x: hidden;
+}
+
+/* 2. Corrección de la cabecera para móviles */
+@media (max-width: 640px) {
+  .cabecera {
+    padding: 0.8rem 0.8rem;
+    flex-direction: column;
+    align-items: center;
+    gap: 0.6rem;
+  }
+
+  .cabecera__marca {
+    justify-content: center;
+  }
+
+  .cabecera__titulo {
+    font-size: 1.1rem;
+  }
+
+  .cabecera__nav {
+    width: 100%;
+    justify-content: center;
+    gap: 0.8rem;
+    font-size: 0.85rem;
+  }
+
+  .cabecera__usuario {
+    width: 100%;
+    justify-content: center;
+    font-size: 0.85rem;
+    gap: 0.5rem;
+  }
+
+  /* 3. Ajuste de contenedores para no desbordar los bordes */
+  .seccion {
+    padding: 1.5rem 0.8rem 1rem;
+    width: 100%;
+    box-sizing: border-box;
+  }
+
+  .filtro-galaxia {
+    gap: 0.4rem;
+    justify-content: center;
+  }
+
+  .filtro__boton {
+    padding: 0.4rem 0.8rem;
+    font-size: 0.78rem;
+  }
+
+  /* Visor e imágenes ajustadas al ancho del dispositivo */
+  .visor-galaxia, 
+  .visor-galaxia__imagen {
+    min-height: 180px;
+    width: 100%;
+    max-width: 100%;
+  }
+}
+@media (max-width: 640px) {
+  .cabecera {
+    display: grid;
+    grid-template-columns: 1fr auto;
+    grid-template-areas:
+      "marca usuario"
+      "nav   nav";
+    gap: 0.6rem 0.5rem;
+    padding: 0.8rem 1rem;
+  }
+
+  .cabecera__marca {
+    grid-area: marca;
+    justify-content: flex-start;
+  }
+
+  .cabecera__titulo {
+    font-size: 1rem;
+    white-space: nowrap;
+  }
+
+  .cabecera__usuario {
+    grid-area: usuario;
+    justify-content: flex-end;
+    font-size: 0.8rem;
+    gap: 0.4rem;
+  }
+
+  .cabecera__nav {
+    grid-area: nav;
+    width: 100%;
+    justify-content: center;
+    gap: 1.2rem;
+    padding-top: 0.4rem;
+    border-top: 1px solid rgba(140, 160, 255, 0.1);
+    font-size: 0.85rem;
+  }
+}

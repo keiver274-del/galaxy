@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Misión Espacial — Inicio</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@500;700;900&family=Rajdhani:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<div class="estrellas-fondo" aria-hidden="true"></div>
+
+<main>
+  <section id="login" class="pantalla-login">
+    <div class="orbita-decorativa" aria-hidden="true">
+      <div class="orbita orbita--1"><span class="orbita__planeta"></span></div>
+      <div class="orbita orbita--2"><span class="orbita__planeta orbita__planeta--2"></span></div>
+      <div class="orbita orbita--3"><span class="orbita__planeta orbita__planeta--3"></span></div>
+      <div class="sol-central"></div>
+    </div>
+    <div class="tarjeta tarjeta--login">
+      <h1 class="titulo-brillante">Un Lugar seguro</h1>
+      <p class="login__subtitulo">Para una persona especial</p>
+      <form id="formularioLogin" autocomplete="off">
+        <label for="campoUsuario" class="etiqueta-oculta">Nombre o apodo espacial</label>
+        <input type="text" id="campoUsuario" name="usuario" placeholder="Ingresa tu nombre o apodo espacial" maxlength="30" required>
+        <button type="submit" class="boton boton--primario">Entrar</button>
+        <p id="loginError" class="mensaje-error" role="alert" hidden></p>
+      </form>
+    </div>
+  </section>
+</main>
+
+<script src="comun.js"></script>
+<script src="login.js"></script>
+</body>
+</html>
